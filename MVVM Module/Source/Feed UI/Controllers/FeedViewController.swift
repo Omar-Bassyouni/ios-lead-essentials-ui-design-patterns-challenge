@@ -26,19 +26,28 @@ public final class FeedViewController: UITableViewController, UITableViewDataSou
 	func bind() {
 		title = viewModel?.title
 		viewModel?.onStateChange = { [weak self] state in
+			self?.handleLoading(for: state)
+
 			switch state {
 			case .loading:
-				self?.refreshControl?.beginRefreshing()
 				self?.errorView.hideMessage()
 
 			case .loaded:
-				self?.refreshControl?.endRefreshing()
 				self?.tableView.reloadData()
 
 			case .error(let message):
-				self?.refreshControl?.endRefreshing()
 				self?.errorView.show(message: message)
 			}
+		}
+	}
+
+	private func handleLoading(for state: FeedViewModel.State) {
+		switch state {
+		case .loading:
+			refreshControl?.beginRefreshing()
+
+		case .loaded, .error:
+			refreshControl?.endRefreshing()
 		}
 	}
 
