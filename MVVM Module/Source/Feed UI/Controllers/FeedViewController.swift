@@ -5,13 +5,13 @@
 import UIKit
 
 public final class FeedViewController: UITableViewController, UITableViewDataSourcePrefetching {
+	@IBOutlet weak var errorView: ErrorView!
+
 	var viewModel: FeedViewModel? {
 		didSet { bind() }
 	}
 
-	var tableModel = [FeedImageCellController]() {
-		didSet { tableView.reloadData() }
-	}
+	var tableModel = [FeedImageCellController]()
 
 	public override func viewDidLoad() {
 		super.viewDidLoad()
@@ -25,11 +25,19 @@ public final class FeedViewController: UITableViewController, UITableViewDataSou
 
 	func bind() {
 		title = viewModel?.title
-		viewModel?.onLoadingStateChange = { [weak self] isLoading in
-			if isLoading {
+		viewModel?.onStateChange = { [weak self] state in
+			switch state {
+			case .loading:
 				self?.refreshControl?.beginRefreshing()
-			} else {
+				self?.errorView.hideMessage()
+
+			case .loaded:
 				self?.refreshControl?.endRefreshing()
+				self?.tableView.reloadData()
+
+			case .error(let message):
+				self?.refreshControl?.endRefreshing()
+				self?.errorView.show(message: message)
 			}
 		}
 	}
