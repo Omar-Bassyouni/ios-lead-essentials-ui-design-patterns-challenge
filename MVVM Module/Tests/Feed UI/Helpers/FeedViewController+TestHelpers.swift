@@ -62,7 +62,7 @@ extension FeedViewController {
 		errorView?.message
 	}
 
-	var didRenderError: Bool? {
+	var isErrorVisible: Bool? {
 		errorView?.alpha == 1
 	}
 

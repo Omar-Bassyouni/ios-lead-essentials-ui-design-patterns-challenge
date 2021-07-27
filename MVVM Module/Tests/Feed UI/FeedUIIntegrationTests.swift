@@ -286,11 +286,11 @@ final class FeedUIIntegrationTests: XCTestCase {
 		sut.loadViewIfNeeded()
 		loader.completeFeedLoadingWithError()
 
-		XCTAssertEqual(sut.didRenderError, true, "Expected to render error view on feed load failure")
+		XCTAssertEqual(sut.isErrorVisible, true, "Expected to render error view on feed load failure")
 		XCTAssertEqual(sut.renderedErrorMessage, localized("FEED_VIEW_CONNECTION_ERROR"), "Expected rendered error message to be localised error message")
 
 		sut.simulateUserInitiatedFeedReload()
-		XCTAssertEqual(sut.didRenderError, false, "Expected to not show error when loading feed")
+		XCTAssertEqual(sut.isErrorVisible, false, "Expected to not show error when loading feed")
 	}
 
 	func test_errorView_whenShowing_andTapped_hidesErrorView() {
@@ -300,7 +300,7 @@ final class FeedUIIntegrationTests: XCTestCase {
 
 		sut.simulateUserTappedError()
 
-		XCTAssertEqual(sut.didRenderError, false, "Expected error view to be hidden when tapped")
+		XCTAssertEqual(sut.isErrorVisible, false, "Expected error view to be hidden when tapped")
 	}
 
 	// MARK: - Helpers
