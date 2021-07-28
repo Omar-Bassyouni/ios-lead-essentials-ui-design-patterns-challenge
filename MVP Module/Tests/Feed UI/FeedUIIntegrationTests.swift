@@ -293,6 +293,16 @@ final class FeedUIIntegrationTests: XCTestCase {
 		XCTAssertEqual(sut.isErrorVisible, false, "Expected to not show error when loading feed")
 	}
 
+	func test_errorView_whenShowing_andTapped_hidesErrorView() {
+		let (sut, loader) = makeSUT()
+		sut.loadViewIfNeeded()
+		loader.completeFeedLoadingWithError()
+
+		sut.simulateUserTappedError()
+
+		XCTAssertEqual(sut.isErrorVisible, false, "Expected error view to be hidden when tapped")
+	}
+
 	// MARK: - Helpers
 
 	private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: FeedViewController, loader: LoaderSpy) {
