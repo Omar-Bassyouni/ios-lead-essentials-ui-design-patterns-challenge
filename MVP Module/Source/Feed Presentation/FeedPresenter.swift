@@ -17,15 +17,6 @@ protocol FeedErrorView {
 	func display(_ viewModel: FeedErrorViewModel)
 }
 
-struct FeedErrorViewModel {
-	let state: State
-
-	enum State {
-		case show(message: String)
-		case hide
-	}
-}
-
 final class FeedPresenter {
 	private let feedView: FeedView
 	private let loadingView: FeedLoadingView
