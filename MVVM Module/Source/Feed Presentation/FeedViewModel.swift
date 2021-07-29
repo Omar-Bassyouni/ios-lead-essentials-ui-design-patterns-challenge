@@ -38,11 +38,3 @@ final class FeedViewModel {
 		}
 	}
 }
-
-extension FeedViewModel {
-	enum State {
-		case loading
-		case loaded
-		case error(message: String)
-	}
-}
