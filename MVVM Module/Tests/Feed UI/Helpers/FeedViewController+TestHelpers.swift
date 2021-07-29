@@ -66,10 +66,6 @@ extension FeedViewController {
 		errorView?.alpha == 1
 	}
 
-	private var errorView: ErrorView? {
-		tableView.tableHeaderView as? ErrorView
-	}
-
 	func simulateUserTappedError() {
 		errorView?.button.simulateTap()
 	}
