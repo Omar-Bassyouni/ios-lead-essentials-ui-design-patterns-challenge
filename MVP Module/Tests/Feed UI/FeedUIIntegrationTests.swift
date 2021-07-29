@@ -284,8 +284,9 @@ final class FeedUIIntegrationTests: XCTestCase {
 		let (sut, loader) = makeSUT()
 
 		sut.loadViewIfNeeded()
-		loader.completeFeedLoadingWithError()
+		XCTAssertEqual(sut.isErrorVisible, false, "Expected to error view to be hidden on viewLoad")
 
+		loader.completeFeedLoadingWithError()
 		XCTAssertEqual(sut.isErrorVisible, true, "Expected to render error view on feed load failure")
 		XCTAssertEqual(sut.renderedErrorMessage, localized("FEED_VIEW_CONNECTION_ERROR"), "Expected rendered error message to be localised error message")
 
