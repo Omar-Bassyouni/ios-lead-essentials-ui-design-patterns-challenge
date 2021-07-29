@@ -9,10 +9,5 @@
 import Foundation
 
 struct FeedErrorViewModel {
-	let state: State
-
-	enum State {
-		case show(message: String)
-		case hide
-	}
+	let message: String?
 }
